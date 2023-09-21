@@ -1,5 +1,5 @@
 <div align="center">
-
+test
 <img src="figs/logo.png" width="180px">
 
 **An Easy-to-use Knowledge Editing Framework for Large Language Models.**
@@ -76,24 +76,26 @@ Deployed models may still make unpredictable errors. For example, Large Language
 
 **Knowledge editing** aims to adjust an initial base model's $(f_\theta)$ behavior($x_e \rightarrow y_e$) on the particular edit descriptor $[x_e, y_e]$ efficiently. There are usually three forms:
 
+#### Knowledge update
 
-####  Knowledge update
 LLMs often suffer from knowledge cutoff issue, EasyEdit can update outdated knowledge. such as:
-- *The president of USA: Donald Trump* $\rightarrow$ **Joe Biden**:
-    - $x_e$: Who is the president of the US? $\quad$ $y_e$: Joe Biden
 
+- _The president of USA: Donald Trump_ $\rightarrow$ **Joe Biden**:
+  - $x_e$: Who is the president of the US? $\quad$ $y_e$: Joe Biden
 
-####  Knowledge insert
+#### Knowledge insert
+
 Inject knowledge that LLMs have not seen before. such as:
-- *How many times has Messi won the World Cup? 0* $\rightarrow$ **1**:
-    - $x_e$: How many times has Messi won the World Cup? $\quad$ $y_e$: 1
 
-####  Knowledge erase
+- _How many times has Messi won the World Cup? 0_ $\rightarrow$ **1**:
+  - $x_e$: How many times has Messi won the World Cup? $\quad$ $y_e$: 1
+
+#### Knowledge erase
+
 EasyEdit can erase sensitive information. such as:
-- *The phone number of someone is XXXX* $\rightarrow$ **__**
-    - $x_e$: The phone number of someone is $\quad$ $y_e$: __
 
-
+- _The phone number of someone is XXXX_ $\rightarrow$ **\_\_**
+  - $x_e$: The phone number of someone is $\quad$ $y_e$: \_\_
 
 Without influencing the model behavior on unrelated samples, the ultimate goal is to create an edited model $(f_\theta')$.
 
@@ -152,21 +154,19 @@ EasyEdit is a Python package for edit Large Language Models (LLM) like `GPT-J`, 
 You can choose different editing methods according to your specific needs.
 | **Method** | T5 | GPT-2 | GPT-J | GPT-NEO | LlaMA1/2 | Baichuan | ChatGLM2 | ChatGPT |
 | :-------: | :-------: | :-------: | :-------: | :-------: | :-------: | :-------: | :-------: | :-------: |
-| FT | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |  | ✅ |
-| AdaLoRA |  |  |  |  | ✅ |  |  |  |
-| SERAC | ✅ | ✅ | ✅ | | ✅ |  | |
-| IKE | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |  | |
-| MEND | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |  | |
-| KN   | ✅ | ✅ | ✅ |    | ✅ | ✅ | ✅ |  |
+| FT | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | ✅ |
+| AdaLoRA | | | | | ✅ | | | |
+| SERAC | ✅ | ✅ | ✅ | | ✅ | | |
+| IKE | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | |
+| MEND | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | |
+| KN | ✅ | ✅ | ✅ | | ✅ | ✅ | ✅ | |
 | ROME | | ✅ | ✅ | ✅ | ✅ | ✅ | | |
 | MEMIT | | ✅ | ✅ | ✅ | ✅ | ✅ | | |
 
 <!-- |     KE       |  ✅  |  ✅  |  ✅  |  |  | -->
 
-
-
 <!-- | **Method** | Model Name | Description |
-| :--------: | :--------: | :--------: | 
+| :--------: | :--------: | :--------: |
 | [FT-Api](https://openai.com/blog/gpt-3-5-turbo-fine-tuning-and-api-updates) | [gpt-3.5-turbo(ChatGPT)](https://github.com/zjunlp/EasyEdit/blob/main/hparams/FT-Api/gpt-3.5-turbo.yaml) | official fine-tuing Api for gpt-3.5-turbo | -->
 
 > ❗️❗️ An edit for `gpt-3.5-turbo` returns model_name(for example, `ft: GPT-3.5-turbo-0613 :personal::7tWZkLzq`) instead model weights.
@@ -216,13 +216,10 @@ editing-data
 - counterfact: original counterfact dataset using Entity replacement
 - zsre: original question answering dataset using question rephrasings
 - locality (evaluation for locality, see details in this [paper](https://arxiv.org/abs/2305.13172))
-    - Commonsense Task: evaluation for other downstream tasks such as commonsense task
-    - Distracting Neighbor: test on distracting neighborhood ([reference: Detecting Edit Failures...](https://arxiv.org/abs/2305.17553))
-    - Other Attribution
-- portability
-    - Inverse Relation: evaluation for one-to-one relationship such as `spouse`
-    - One Hop: evaluation for one-hop reasoning
-    - Subject Replace: evaluation for synonym replacement
+  - Commonsense Task: evaluation for other downstream tasks such as commonsense task
+  - Distracting Neighbor: test on distracting neighborhood ([reference: Detecting Edit Failures...](https://arxiv.org/abs/2305.17553))
+  - Other Attribution
+- portability - Inverse Relation: evaluation for one-to-one relationship such as `spouse` - One Hop: evaluation for one-hop reasoning - Subject Replace: evaluation for synonym replacement
 </details>
 
 #### Tutorial notebook
@@ -241,7 +238,7 @@ We present editing results of the four metrics on [LlaMA-2-7B](https://huggingfa
 
 |       | Reliability | Generalization |  Locality  | Portability |
 | :---: | :---------: | :------------: | :--------: | :---------: |
-| FT  |    56.94    |     52.02      |   96.32    |    0.07     |
+|  FT   |    56.94    |     52.02      |   96.32    |    0.07     |
 | SERAC |    99.49    |     99.13      | **100.00** |    0.13     |
 |  IKE  | **100.00**  |   **99.98**    |   69.19    |  **67.56**  |
 | MEND  |    94.24    |     90.27      |   97.04    |    0.14     |
@@ -462,6 +459,7 @@ trainer.run()
 - Edit: Set the `archive` field in the **hparams file** to `CHECKPOINT`. EasyEdit will automatically load the corresponding pre-trained weights during the editing process([Go to edit](#use-easyedit)).
 
 **Training Example**
+
 ```python
 from easyeditor import EditTrainer, MENDTrainingHparams, ZsreDataset
 
