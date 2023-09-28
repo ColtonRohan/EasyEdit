@@ -1,5 +1,5 @@
 <div align="center">
-test
+
 <img src="figs/logo.png" width="180px">
 
 **An Easy-to-use Knowledge Editing Framework for Large Language Models.**
